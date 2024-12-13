@@ -34,17 +34,17 @@ import joblib
 # %% Load Necessary Files
 
 # Cache loading of vegetation and features GeoDatabase files
-@st.cache
+@st.cache_data
 def load_geodatabase(path):
     return gpd.read_file(path)
 
 # Cache the machine learning model
-@st.cache
+@st.cache_data
 def load_lin_model(path):
     return joblib.load(path)
 
 # Cache raster data
-@st.cache
+@st.cache_data
 def load_raster(path):
     with rasterio.open(path) as src:
         data = src.read(1)  # Read the raster data
@@ -52,7 +52,7 @@ def load_raster(path):
     return data, transform
 
 # Cache graph data loading
-@st.cache
+@st.cache_data
 def load_graph(path):
     with open(path, "r") as f:
         data = json.load(f)
