@@ -34,7 +34,6 @@ import joblib
 # %% Load Necessary Files
 veg_path = "Campus_Vegetation.gdb"
 feat_path = "Campus_Features.gdb"
-df = pd.read_csv('reg.csv')
 lin_model_reg = joblib.load('linear_regression_model.pkl')
 with rasterio.open("lidar_dsm.tif") as dsm_src, rasterio.open("dem_resampled.tif") as dem_src:
     dsm_data = dsm_src.read(1)  # Read DSM
