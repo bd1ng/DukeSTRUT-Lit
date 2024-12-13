@@ -32,17 +32,51 @@ from sklearn.linear_model import LinearRegression
 import joblib
 
 # %% Load Necessary Files
+
+# Cache loading of vegetation and features GeoDatabase files
+@st.cache
+def load_geodatabase(path):
+    return gpd.read_file(path)
+
+# Cache the machine learning model
+@st.cache
+def load_lin_model(path):
+    return joblib.load(path)
+
+# Cache raster data
+@st.cache
+def load_raster(path):
+    with rasterio.open(path) as src:
+        data = src.read(1)  # Read the raster data
+        transform = src.transform
+    return data, transform
+
+# Cache graph data loading
+@st.cache
+def load_graph(path):
+    with open(path, "r") as f:
+        data = json.load(f)
+    return json_graph.node_link_graph(data)
+
+# Paths to data
 veg_path = "Campus_Vegetation.gdb"
 feat_path = "Campus_Features.gdb"
-lin_model_reg = joblib.load('linear_regression_model.pkl')
-with rasterio.open("lidar_dsm.tif") as dsm_src, rasterio.open("dem_resampled.tif") as dem_src:
-    dsm_data = dsm_src.read(1)  # Read DSM
-    dem_data = dem_src.read(1)  # Read DEM
-    dsm_transform = dsm_src.transform
-    dem_transform = dem_src.transform
-with open("graph.json", "r") as f:
-    graph_data = json.load(f)
-graph = json_graph.node_link_graph(graph_data)
+model_path = "linear_regression_model.pkl"
+dsm_path = "lidar_dsm.tif"
+dem_path = "dem_resampled.tif"
+graph_path = "graph.json"
+
+# Load datasets
+veg_data = load_geodatabase(veg_path)  # Cached
+feat_data = load_geodatabase(feat_path)  # Cached
+lin_model_reg = load_lin_model(model_path)  # Cached
+
+# Load raster data
+dsm_data, dsm_transform = load_raster(dsm_path)  # Cached
+dem_data, dem_transform = load_raster(dem_path)  # Cached
+
+# Load graph
+graph = load_graph(graph_path)  # Cached
 
 # %% GEO Setup
 base = gpd.read_file(feat_path, layer="BaseFeatures") 
