@@ -220,11 +220,9 @@ def get_current_weather(lat, lon):
                 "humidity": current_humidity
             }
         else:
-            with placeholder:
-                st.warning("Cannot fetch hour data.")
+            st.warning("Cannot fetch hour data.")
     else:
-        with placeholder:
-            st.warning("Cannot fetch weather data.")
+        st.warning("Cannot fetch weather data.")
 
 latitude = 36.001465  
 longitude = -78.939133 
@@ -279,8 +277,7 @@ Examples:
         end = response.text.split("End:")[1].strip()
         return start, end
     else:
-        with placeholder:
-            st.error("This isn't what I expected, Blue Devil, please specify where you are and where you'd like to go :)")
+        st.error("This isn't what I expected, Blue Devil, please specify where you are and where you'd like to go :)")
         return None, None
 
 def get_coordinates(location_name, retries=3):
@@ -298,8 +295,7 @@ def get_coordinates(location_name, retries=3):
 
             # Check for default coordinates
             if lat == 36.0014258 and lng == -78.9382286:
-                with placeholder:
-                    st.info(f"Default coordinates detected for '{location_name}'. Retrying with refinement ({attempt + 1}/{retries})...")
+                st.info(f"Default coordinates detected for '{location_name}'. Retrying with refinement ({attempt + 1}/{retries})...")
                 
                 # Refine the location using Gemini
                 refinement_prompt = f"""
@@ -314,12 +310,10 @@ def get_coordinates(location_name, retries=3):
             
             return lat, lng  # Valid coordinates found
 
-        with placeholder:
-            st.info(f"Failed to get valid coordinates for '{location_name}'. Retrying ({attempt + 1}/{retries})...")
+        st.info(f"Failed to get valid coordinates for '{location_name}'. Retrying ({attempt + 1}/{retries})...")
 
     # If all retries fail
-    with placeholder:
-        st.error(f"Unable to retrieve valid coordinates for '{location_name}' after {retries} retries.")
+    st.error(f"Unable to retrieve valid coordinates for '{location_name}' after {retries} retries.")
     return None, None
 
 # %% Streamlit Visual
