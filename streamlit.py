@@ -238,6 +238,8 @@ if weather_data:
     print(f"Humidity: {humidity}%")
 else:
     st.warning("Failed to retrieve weather data.")
+    temperature = 55
+    humidity = 40
 
 x_test = np.array([[weather_data['temperature'], weather_data['humidity']]])
 y_pred = lin_model_reg.predict(x_test)
