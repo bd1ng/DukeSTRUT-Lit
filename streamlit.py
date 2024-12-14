@@ -220,9 +220,9 @@ def get_current_weather(lat, lon):
                 "humidity": current_humidity
             }
         else:
-            st.warning("Cannot fetch hour data.")
+            return None
     else:
-        st.warning("Cannot fetch weather data.")
+        return None
 
 latitude = 36.001465  
 longitude = -78.939133 
@@ -237,7 +237,6 @@ if weather_data:
     print(f"Temperature: {temperature}°F")
     print(f"Humidity: {humidity}%")
 else:
-    st.warning("Failed to retrieve weather data.")
     weather_data = {
         "temperature": 55,  # Default temperature value
         "humidity": 40      # Default humidity value
