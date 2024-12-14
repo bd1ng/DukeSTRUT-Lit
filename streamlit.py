@@ -242,6 +242,9 @@ else:
         "temperature": 55,  # Default temperature value
         "humidity": 40      # Default humidity value
     }
+    temperature = weather_data["temperature"]
+    humidity = weather_data["humidity"]
+
 x_test = np.array([[weather_data['temperature'], weather_data['humidity']]])
 y_pred = lin_model_reg.predict(x_test)
 y_pred = y_pred[0]
